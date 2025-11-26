@@ -1,0 +1,97 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+
+{% if message %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+
+<!-- Check if listing is active-->
+{% if listing.isActive %}
+{% else%}
+
+<script>
+
+    alert('The winner is {{listing.user.username}}');
+    window.location ="{% url 'index' %}"
+</script>
+{% endif %}
+
+<h2>Listing: {{listing.title}}</h2>
+{% if listing.imageLink and listing.imageLink != "" %}
+<div class="image_temp">
+    <image src={{ listing.imageLink}} alt="No image listed">
+
+</div>
+{% endif %}
+
+<br />
+<h2>Details</h2>
+<ul>
+    <li><div>Description: {{listing.description}} </div></li>
+    <li><div>Current Price: {{bid.bid}} MAD</div></li>
+    <li><div>Listed by: {{listing.user.username}}</div></li>
+    <li><div>Category: {{listing.category}}</div></li>
+</ul>
+
+<form action="{% url 'listing' listing.id %}" method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <input class="form-control" type="number" name="bid" placeholder="Bid (in MAD)" max="1000000" min={{bid.bid}} required>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Make a bid">
+
+</form>
+
+<form action="{% url 'listing' listing.id %}" method="post">
+    {% csrf_token %}
+
+    {% if query %}
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="Remove from watchlist" name="watchlist">
+    </div>
+
+    {%else%}
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="Add to watchlist" name="watchlist">
+    </div>
+
+    {% endif %}
+
+</form>
+
+
+
+
+{% if request.user == listing.user %}
+<form action="{% url 'listing' listing.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-primary" value="Close Bidding" name="closed" />
+</form>
+{% endif %}
+
+
+
+<h2>Comments:</h2>
+<form action="{% url 'listing' listing.id %}" method="post">
+    {% csrf_token %}
+    
+
+    <textarea maxlength=500 name="comment" paceholder="leave a comment on this listing! (maximum length is 500)" cols=66 rows="8"></textarea>
+    <br />
+    <input class="btn btn-primary" type="submit" value="submit a comment">
+
+</form>
+
+<br />
+<h3>All comments:</h3>
+    {% for comment in comments%}
+<div class="comments">
+    <div><u>{{comment.user.username}}</u></div>
+    <div>  .{{comment.description}}</div>
+</div>
+    {% endfor %}
+
+{% endblock %}

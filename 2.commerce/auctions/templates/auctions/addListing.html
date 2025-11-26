@@ -1,0 +1,42 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Add a Listing</h2>
+
+<form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <input autofocus class="form-control" type="text" name="title" placeholder="Title" maxlength="64" required>
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" type="text" name="description" placeholder="Description" maxlength="100" required>
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" type="number" name="bid" placeholder="Starting bid (MAD)" max="1000000" min="0" required>
+    </div>
+
+    <div class="form-group">
+        <input type="text" name="imageLink" placeholder="image url (optional) " class="form-control"/> 
+    </div>
+
+
+    <div class="form-group">
+        <label for="category">Choose category:</label> 
+        <select name="category" class="form-control">
+            <option value="Other">Other</option>
+            <option value="Collectibles">Collectibles</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Health & Beauty">Health & Beauty</option>
+            <option value="Home & Garden">Home & Garden</option>
+            <option value="Toys" >Toys</option>
+
+        </select >
+    </div >
+
+    <input class="btn btn-primary" type="submit" value="Add Listing" >
+</form >
+
+{% endblock %}

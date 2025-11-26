@@ -1,0 +1,63 @@
+
+html{
+    background-color: beige;
+
+}
+
+body {
+    padding: 10px;
+}
+
+.listing {
+    border: 5px dashed black;
+    margin: 5px;
+    padding: 5px;
+}
+
+form {
+    padding-top: 20px;
+}
+
+.comments {
+    border: 3px solid black;
+    padding: 10px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    background-color: aliceblue;
+    border-radius: 10%;
+}
+
+
+img {
+    max-width: 250px;
+    max-height: 250px;
+}
+
+#watchlist_count {
+    background-color: navy;
+    color: white;
+    margin: auto;
+    text-align: center;
+    width: 50%;
+}
+
+
+
+.title {
+    font-size: 18px;
+}
+
+.currentPrice {
+    font-family: Arial;
+}
+
+.date {
+    color: gray;
+    font-size: 14px;
+}
+
+.description {
+    color: darkslategrey;
+}
+
+
